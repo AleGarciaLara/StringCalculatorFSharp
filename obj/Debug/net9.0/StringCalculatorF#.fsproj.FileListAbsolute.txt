@@ -27,3 +27,4 @@
 /Users/alejandragarcialara/Desktop/StringCalculatorF#/obj/Debug/net9.0/StringCalculatorF#.pdb
 /Users/alejandragarcialara/Desktop/StringCalculatorF#/obj/Debug/net9.0/StringCalculatorF#.genruntimeconfig.cache
 /Users/alejandragarcialara/Desktop/StringCalculatorF#/obj/Debug/net9.0/ref/StringCalculatorF#.dll
+/Users/alejandragarcialara/Desktop/StringCalculatorF#/obj/Debug/net9.0/StringCalculatorF#.sourcelink.json

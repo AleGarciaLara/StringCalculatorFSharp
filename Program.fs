@@ -5,17 +5,16 @@ let Add (input: string) =
   else 
     try 
       let parts = input.Split(',')
-      let num1 = int parts.[0]
-      let num2 = int parts.[1]
-      num1 + num2 
+      let numbers = parts |> Array.map int // convert the input to numbers
+      numbers |> Array.sum // sum the numbers 
     with 
-      | _ -> 0 
+      | _ -> 0  // if the input is not a number, return 0
 
 Console.WriteLine"Welcome to the String Calculator! What's your name?"
 
 let name = Console.ReadLine() // we get the user's name
 
-Console.WriteLine($"Hello {name}! Type 2 numbers separated by a comma so we can sum them:")
+Console.WriteLine($"Hello {name}! Type numbers separated by a comma so we can sum them:")
 let input = Console.ReadLine() // we get the numbers 
 
 let result = Add input
