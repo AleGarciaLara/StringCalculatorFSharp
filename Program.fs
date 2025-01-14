@@ -19,8 +19,10 @@ let Add (input: string) =
         raise (new Exception($"Negatives not allowed: {negativesString}"))
 
       else 
-          numbers |> Array.sum // sum the numbers 
-
+      //ignore big numbers 
+      let validNums = numbers |> Array.filter(fun x -> x <= 1000)
+      validNums |> Array.sum
+  
     with 
       | ex ->
            printfn "%s" ex.Message // if the input is not a number, return 0
