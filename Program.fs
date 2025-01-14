@@ -20,7 +20,7 @@ Console.WriteLine"Welcome to the String Calculator! What's your name?"
 
 let name = Console.ReadLine() // we get the user's name
 
-Console.WriteLine($"Hello {name}! \nType numbers separated by a comma so we can sum them. (You can use newline characters as well.)")
+Console.WriteLine($"Hello {name}! Let's sum! \nType numbers separated by a comma. \n(You can use newline characters as well.)")
 let input = Console.ReadLine() // we get the numbers 
 
 let result = Add input
