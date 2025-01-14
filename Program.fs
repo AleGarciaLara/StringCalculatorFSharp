@@ -12,9 +12,19 @@ let Add (input: string) =
 
       let numbers = allParts |> Array.map int // convert the input to numbers
 
-      numbers |> Array.sum // sum the numbers 
+      // check negative numbers
+      let negatives = numbers |> Array.filter (fun x -> x < 0)
+      if Array.length negatives > 0 then 
+        let negativesString = String.Join(", ", negatives)
+        raise (new Exception($"Negatives not allowed: {negativesString}"))
+
+      else 
+          numbers |> Array.sum // sum the numbers 
+
     with 
-      | _ -> 0  // if the input is not a number, return 0
+      | ex ->
+           printfn "%s" ex.Message // if the input is not a number, return 0
+           0
 
 Console.WriteLine"Welcome to the String Calculator! What's your name?"
 
