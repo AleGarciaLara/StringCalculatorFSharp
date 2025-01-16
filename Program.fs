@@ -3,30 +3,31 @@
 let Add (input: string) = 
   if input = "" then 0 
   else 
-    try 
-      let parts = input.Split(',') // split string
-      let allParts = 
-          parts
-          |> Array.collect (fun x -> x.Split('\\', 'n'))
-          |> Array.filter (fun x -> not (String.IsNullOrWhiteSpace(x)))
-
-      let numbers = allParts |> Array.map int // convert the input to numbers
+      try 
+          let processedInput = input.Replace("\\n", "\n")
+          let numbers = 
+              if processedInput.StartsWith("//") then
+                  let delimiter = processedInput.[2] //get custom delimiter 
+                  let numbersString = processedInput.[4..] // get the numbers part
+                  numbersString.Split(delimiter) 
+                  |> Array.map int //convert to int
+              else
+                  processedInput.Split([| ',' ; '\n' |], StringSplitOptions.RemoveEmptyEntries)
+                  |> Array.map int
 
       // check negative numbers
-      let negatives = numbers |> Array.filter (fun x -> x < 0)
-      if Array.length negatives > 0 then 
-        let negativesString = String.Join(", ", negatives)
-        raise (new Exception($"Negatives not allowed: {negativesString}"))
+          let negatives = numbers |> Array.filter (fun x -> x < 0)
+          if Array.length negatives > 0 then 
+            let negativesString = String.Join(", ", negatives)
+            raise (new Exception($"Negatives not allowed: {negativesString}"))
 
-      else 
       //ignore big numbers 
-      let validNums = numbers |> Array.filter(fun x -> x <= 1000)
-      validNums |> Array.sum
-  
-    with 
+          let validNums = numbers |> Array.filter(fun x -> x <= 1000)
+          validNums |> Array.sum
+      with 
       | ex ->
-           printfn "%s" ex.Message // if the input is not a number, return 0
-           0
+          printfn "%s" ex.Message // if the input is not a number, return 0
+          0
 
 Console.WriteLine"Welcome to the String Calculator! What's your name?"
 
