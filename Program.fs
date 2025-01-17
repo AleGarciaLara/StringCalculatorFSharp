@@ -51,14 +51,31 @@ let Add (input: string) =
           printfn "%s" ex.Message // if the input is not a number, return 0
           0
 
-Console.WriteLine"Welcome to the String Calculator! What's your name?"
+//Calculator interface
+
+Console.WriteLine"Welcome to the String Calculator!🧮 \nWhat's your name?"
 
 let name = Console.ReadLine() // we get the user's name
 
-Console.WriteLine($"Hello {name}! Let's sum! \nType numbers separated by a comma. \nYou can use newline characters as well. \nYou can also use custom delimiters of any length in these formats: \n1. //[delimiter]new line character[numbers...]. \n2. //[delim1][delim2]new line character[numbers...].")
-let input = Console.ReadLine() // we get the numbers 
+let mutable continueCalculating = true
 
-let result = Add input
+Console.WriteLine($"Hello {name}! Let's sum! 🤓 \nType numbers separated by a comma. \nYou can use newline characters as well. \nYou can also use custom delimiters of any length in these formats: \n1. //[delimiter]new line character[numbers...]. \n2. //[delim1][delim2]new line character[numbers...].")
 
-Console.WriteLine($"Result: {result}")
+while continueCalculating do
+    Console.WriteLine("Enter the numbers (or type 'exit' to quit):")
+    let input = Console.ReadLine() // we get the numbers 
+
+    if input = "exit" then 
+        continueCalculating <- false
+        Console.WriteLine($"Thanks for using the String Calculator, {name}! See you next time! 🤓")
+    else
+        let result = Add input
+        Console.WriteLine($"Result: {result}")
+
+        Console.WriteLine("Would you like to sum again? (yes/no)")
+        let answer = Console.ReadLine() //get the yes or no
+        if answer <> "yes" then // <> means not equal to
+            continueCalculating <- false  
+            Console.WriteLine($"Thanks for using the String Calculator, {name}! See you next time! 🤓")
+
 
