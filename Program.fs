@@ -7,14 +7,24 @@ let Add (input: string) =
           let processedInput = input.Replace("\\n", "\n")
           let numbers = 
               if processedInput.StartsWith("//[") then 
-                  let endDelimiterIndex = processedInput.IndexOf("]")
+                  //get everything between the first [ and \n 
+                  let delimitersSection = processedInput.Substring(2, processedInput.IndexOf("\n") - 2)
                   //extract delimiter (skip first 3 char)
-                  let delimiter = processedInput.Substring(3, endDelimiterIndex - 3)
-                  //get numbers part after ] and \n
-                  let numbersString = processedInput.Substring(endDelimiterIndex + 2)
+                  let delimiters = 
+                      delimitersSection.Split([|'['|], StringSplitOptions.RemoveEmptyEntries)
+                      |> Array.map (fun d -> d.TrimEnd(']'))
+                  //get numbers part after \n
+                  let numbersString = processedInput.Substring(processedInput.IndexOf("\n") + 1)
+
+                  //split by all delimiters and convert to int
+                  let mutable parts = [| numbersString|]
+                  for delimiter in delimiters do
+                      parts <- 
+                          parts 
+                          |> Array.collect (fun part ->
+                              part.Split([|delimiter|], StringSplitOptions.RemoveEmptyEntries))
+                  parts |> Array.map int
                   //split string by delimiter and convert to int
-                  numbersString.Split([|delimiter|], StringSplitOptions.RemoveEmptyEntries)
-                  |> Array.map int
 
               // check if input starts with // 
 
@@ -45,7 +55,7 @@ Console.WriteLine"Welcome to the String Calculator! What's your name?"
 
 let name = Console.ReadLine() // we get the user's name
 
-Console.WriteLine($"Hello {name}! Let's sum! \nType numbers separated by a comma. \nYou can use newline characters as well. \nYou can also use custom delimiters of any length in this format: //[delimiter]new line character[numbers...].")
+Console.WriteLine($"Hello {name}! Let's sum! \nType numbers separated by a comma. \nYou can use newline characters as well. \nYou can also use custom delimiters of any length in these formats: \n1. //[delimiter]new line character[numbers...]. \n2. //[delim1][delim2]new line character[numbers...].")
 let input = Console.ReadLine() // we get the numbers 
 
 let result = Add input
