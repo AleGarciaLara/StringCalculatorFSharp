@@ -16,6 +16,6 @@ How to run the project
 - Navigate to the project folder
 - Run the project ( dotnet run )
 
-- Important! -
+  Important!!!
 * Make sure to install the .NET SDK and that F# support is enabled. 
  
